@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 void main() => runApp(MyApp());
 
@@ -34,11 +35,37 @@ class CrazySwitch extends StatefulWidget {
   _CrazySwitchState createState() => _CrazySwitchState();
 }
 
-class _CrazySwitchState extends State<CrazySwitch> {
+class _CrazySwitchState extends
+  State<CrazySwitch> with
+  SingleTickerProviderStateMixin{
+
+  Duration _duration = Duration(milliseconds: 800);
+  Animation<Alignment> _animation;
+  AnimationController _animationController;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _animationController = AnimationController(
+      vsync: this,
+      duration: _duration
+    );
+
+    _animation = AlignmentTween(
+      begin: Alignment.centerLeft,
+      end: Alignment.centerRight
+    ).animate(
+        CurvedAnimation(
+          parent: _animationController,
+          curve: Curves.elasticIn
+        ),
+    );
+  }
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 130,
+      width: 100,
       height: 50,
       padding: EdgeInsets.fromLTRB(2, 8, 2, 8),
       decoration: BoxDecoration(
@@ -50,13 +77,24 @@ class _CrazySwitchState extends State<CrazySwitch> {
       child: Stack(
         children: <Widget>[
           Align(
-            alignment: Alignment.centerLeft,
-            child: Container(
-              width: 50,
-              height: 50,
-              decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: Colors.white,
+            alignment: _animation.value,
+            child: GestureDetector(
+              onTap: (){
+                setState(() {
+                  if(_animationController.isCompleted){
+                    _animationController.reverse();
+                  }else{
+                    _animationController.forward();
+                  }
+                });
+              },
+              child: Container(
+                width: 50,
+                height: 50,
+                decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: Colors.white,
+                ),
               ),
             ),
           )
