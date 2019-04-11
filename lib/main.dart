@@ -58,10 +58,17 @@ class _CrazySwitchState extends
     ).animate(
         CurvedAnimation(
           parent: _animationController,
-          curve: Curves.linear
+          curve: Curves.bounceIn
         ),
     );
   }
+
+  @override
+  void dispose() {
+    _animationController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
