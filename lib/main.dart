@@ -39,7 +39,7 @@ class _CrazySwitchState extends
   State<CrazySwitch> with
   SingleTickerProviderStateMixin{
 
-  Duration _duration = Duration(milliseconds: 800);
+  Duration _duration = Duration(milliseconds: 1500);
   Animation<Alignment> _animation;
   AnimationController _animationController;
 
@@ -58,7 +58,7 @@ class _CrazySwitchState extends
     ).animate(
         CurvedAnimation(
           parent: _animationController,
-          curve: Curves.elasticIn
+          curve: Curves.linear
         ),
     );
   }
