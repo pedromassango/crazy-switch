@@ -39,7 +39,8 @@ class _CrazySwitchState extends
   State<CrazySwitch> with
   SingleTickerProviderStateMixin{
 
-  Duration _duration = Duration(milliseconds: 800);
+  bool isChecked = false;
+  Duration _duration = Duration(milliseconds: 370);
   Animation<Alignment> _animation;
   AnimationController _animationController;
 
