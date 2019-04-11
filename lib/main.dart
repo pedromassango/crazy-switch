@@ -76,14 +76,21 @@ class _CrazySwitchState extends
       animation: _animationController,
       builder: (context, child){
         return Container(
-          width: 100,
-          height: 45,
-          padding: EdgeInsets.fromLTRB(2, 6, 2, 6),
+          width: 110,
+          height: 50,
+          padding: EdgeInsets.fromLTRB(0, 6, 0, 6),
           decoration: BoxDecoration(
-            color: Colors.red,
+            color: isChecked ? Colors.green : Colors.red,
             borderRadius: BorderRadius.all(
               Radius.circular(40),
             ),
+            boxShadow: [
+              BoxShadow(
+                color: isChecked ? Colors.green : Colors.red,
+                blurRadius: 12,
+                offset: Offset(0, 8)
+              )
+            ]
           ),
           child: Stack(
             children: <Widget>[
@@ -97,6 +104,8 @@ class _CrazySwitchState extends
                       }else{
                         _animationController.forward();
                       }
+
+                      isChecked = !isChecked;
                     });
                   },
                   child: Container(
