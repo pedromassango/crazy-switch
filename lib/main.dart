@@ -39,7 +39,7 @@ class _CrazySwitchState extends
   State<CrazySwitch> with
   SingleTickerProviderStateMixin{
 
-  Duration _duration = Duration(milliseconds: 1500);
+  Duration _duration = Duration(milliseconds: 800);
   Animation<Alignment> _animation;
   AnimationController _animationController;
 
@@ -58,7 +58,8 @@ class _CrazySwitchState extends
     ).animate(
         CurvedAnimation(
           parent: _animationController,
-          curve: Curves.bounceIn
+          curve: Curves.bounceOut,
+          reverseCurve: Curves.bounceIn
         ),
     );
   }
@@ -71,42 +72,47 @@ class _CrazySwitchState extends
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 100,
-      height: 50,
-      padding: EdgeInsets.fromLTRB(2, 8, 2, 8),
-      decoration: BoxDecoration(
-          color: Colors.red,
-          borderRadius: BorderRadius.all(
-            Radius.circular(40),
-          ),
-      ),
-      child: Stack(
-        children: <Widget>[
-          Align(
-            alignment: _animation.value,
-            child: GestureDetector(
-              onTap: (){
-                setState(() {
-                  if(_animationController.isCompleted){
-                    _animationController.reverse();
-                  }else{
-                    _animationController.forward();
-                  }
-                });
-              },
-              child: Container(
-                width: 50,
-                height: 50,
-                decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: Colors.white,
-                ),
-              ),
+    return AnimatedBuilder(
+      animation: _animationController,
+      builder: (context, child){
+        return Container(
+          width: 100,
+          height: 45,
+          padding: EdgeInsets.fromLTRB(2, 6, 2, 6),
+          decoration: BoxDecoration(
+            color: Colors.red,
+            borderRadius: BorderRadius.all(
+              Radius.circular(40),
             ),
-          )
-        ],
-      ),
+          ),
+          child: Stack(
+            children: <Widget>[
+              Align(
+                alignment: _animation.value,
+                child: GestureDetector(
+                  onTap: (){
+                    setState(() {
+                      if(_animationController.isCompleted){
+                        _animationController.reverse();
+                      }else{
+                        _animationController.forward();
+                      }
+                    });
+                  },
+                  child: Container(
+                    width: 50,
+                    height: 50,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+              )
+            ],
+          ),
+        );
+      },
     );
   }
 }
