@@ -1,6 +1,7 @@
-# crazy_switch
+# Crazy Switch
 
-A new Flutter project.
+
+<img src="/preview/preview.gif" width="400" height="200">
 
 ## Getting Started
 
