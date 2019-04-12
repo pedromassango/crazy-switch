@@ -1,7 +1,7 @@
 # Crazy Switch
 
 
-<img src="/preview/preview.gif" width="500" height="500">
+<img src="/preview/preview.gif" width="600" height="500">
 
 ## Getting Started
 
